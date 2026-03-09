@@ -9,7 +9,7 @@ async function checkEmails() {
     const text = email.innerText;
 
     try {
-      const res = await fetch("http://localhost:5000/predict", {
+      const res = await fetch("https://spam-detector-api-7s6b.onrender.com/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -32,3 +32,4 @@ async function checkEmails() {
 }
 
 setTimeout(checkEmails, 7000);
+
