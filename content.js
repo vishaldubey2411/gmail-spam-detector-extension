@@ -10,26 +10,21 @@ async function checkEmails() {
 
     try {
       const res = await fetch("https://spam-detector-api-7s6b.onrender.com/predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: "message=" + encodeURIComponent(text)
-      });
-
-      const data = await res.json();
-
-      if (data.prediction === "Spam") {
-        email.style.backgroundColor = "#ffcccc";
-      } else {
-        email.style.backgroundColor = "#ccffcc";
-      }
-
-    } catch (err) {
-      console.error("❌ API error:", err);
-    }
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ message: text })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.prediction === "Spam") {
+    email.style.backgroundColor = "#ffcccc";
+  } else {
+    email.style.backgroundColor = "#ccffcc";
   }
-}
+});
 
 setTimeout(checkEmails, 7000);
+
 
