@@ -16,11 +16,12 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    message = request.form.get("message")
+    data = request.get_json()
+    message = data["message"]
 
-    data = vectorizer.transform([message])
-    result = model.predict(data)[0]
-    prob = model.predict_proba(data)[0][1]
+    vec = vectorizer.transform([message])
+    result = model.predict(vec)[0]
+    prob = model.predict_proba(vec)[0][1]
 
     return jsonify({
         "prediction": "Spam" if result == 1 else "Not Spam",
@@ -29,3 +30,4 @@ def predict():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
