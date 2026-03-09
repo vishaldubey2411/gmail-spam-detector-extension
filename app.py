@@ -3,7 +3,7 @@ from flask_cors import CORS
 import pickle
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 model = pickle.load(open("model.pkl","rb"))
 vectorizer = pickle.load(open("vectorizer.pkl","rb"))
@@ -27,3 +27,4 @@ def predict():
 
 if __name__ == "__main__":
     app.run()
+
